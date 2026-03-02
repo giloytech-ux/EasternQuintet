@@ -23,7 +23,7 @@ export function Navbar() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: duration.slow, delay: 0.2, ease: easing.smooth }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "glass-heavy" : "bg-transparent"
+        scrolled ? "glass-light" : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 h-20">
@@ -32,12 +32,12 @@ export function Navbar() {
           <Image
             src="/logo.jpg"
             alt="Eastern Quintet"
-            width={36}
-            height={36}
-            className="h-9 w-9 rounded-sm object-cover"
+            width={48}
+            height={48}
+            className="h-12 w-12 rounded-xl object-cover shadow-sm"
             priority
           />
-          <span className="text-lg font-heading tracking-wider font-bold text-white">
+          <span className={`text-lg font-heading tracking-wider font-bold transition-colors duration-500 ${scrolled ? "text-ink" : "text-white"}`}>
             EASTERN <span className="text-ruby">QUINTET</span>
           </span>
         </a>
@@ -48,14 +48,14 @@ export function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium tracking-wide text-smoke transition-colors duration-300 hover:text-ruby"
+              className={`text-sm font-medium tracking-wide transition-colors duration-300 hover:text-ruby ${scrolled ? "text-charcoal" : "text-white/80"}`}
             >
               {link.label.toUpperCase()}
             </a>
           ))}
           <a
             href="#contact"
-            className="ruby-glow rounded-full bg-ruby px-6 py-2.5 text-sm font-bold tracking-wide text-white transition-all duration-300 hover:bg-ruby-dark"
+            className="rounded-full bg-ruby px-6 py-2.5 text-sm font-semibold tracking-wide text-white transition-all duration-300 hover:bg-ruby-dark hover:shadow-lg"
           >
             BOOK NOW
           </a>
@@ -64,7 +64,7 @@ export function Navbar() {
         {/* Mobile Hamburger */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="text-white md:hidden"
+          className={`md:hidden transition-colors duration-500 ${scrolled ? "text-ink" : "text-white"}`}
           aria-label="Toggle menu"
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -79,7 +79,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: duration.fast, ease: easing.smooth }}
-            className="overflow-hidden border-b border-white/10 bg-onyx-900 md:hidden"
+            className="overflow-hidden border-b border-cloud bg-white md:hidden"
           >
             <div className="flex flex-col gap-4 px-6 py-6">
               {NAV_LINKS.map((link, i) => (
@@ -94,7 +94,7 @@ export function Navbar() {
                     duration: duration.fast,
                     ease: easing.luxuryOut,
                   }}
-                  className="text-lg text-ivory/80 transition-colors hover:text-ruby"
+                  className="text-lg text-charcoal transition-colors hover:text-ruby"
                 >
                   {link.label}
                 </motion.a>

@@ -25,11 +25,16 @@ export function CustomCursor() {
   );
   const hoveringRef = useRef(false);
 
-  const cursorX = useMotionValue(0);
-  const cursorY = useMotionValue(0);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
 
-  const cursorSize = useSpring(12, { stiffness: 300, damping: 25 });
-  const cursorOpacity = useSpring(0.6, { stiffness: 300, damping: 25 });
+  // Snappy spring-follow on position — tight enough to feel responsive, soft enough to trail
+  const cursorX = useSpring(rawX, { stiffness: 800, damping: 40, mass: 0.2 });
+  const cursorY = useSpring(rawY, { stiffness: 800, damping: 40, mass: 0.2 });
+
+  // Fast, crisp size/opacity transitions
+  const cursorSize = useSpring(10, { stiffness: 600, damping: 30 });
+  const cursorOpacity = useSpring(0.5, { stiffness: 600, damping: 30 });
 
   useEffect(() => {
     if (!isPointerFine) return;
@@ -37,8 +42,8 @@ export function CustomCursor() {
     document.documentElement.classList.add("custom-cursor-active");
 
     function handleMouseMove(e: MouseEvent) {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
+      rawX.set(e.clientX);
+      rawY.set(e.clientY);
     }
 
     function handleMouseOver(e: MouseEvent) {
@@ -47,8 +52,8 @@ export function CustomCursor() {
       const isHovering = !!interactive;
       if (isHovering !== hoveringRef.current) {
         hoveringRef.current = isHovering;
-        cursorSize.set(isHovering ? 44 : 12);
-        cursorOpacity.set(isHovering ? 0.2 : 0.6);
+        cursorSize.set(isHovering ? 40 : 10);
+        cursorOpacity.set(isHovering ? 0.15 : 0.5);
       }
     }
 
@@ -60,7 +65,7 @@ export function CustomCursor() {
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseover", handleMouseOver);
     };
-  }, [isPointerFine, cursorX, cursorY, cursorSize, cursorOpacity]);
+  }, [isPointerFine, rawX, rawY, cursorSize, cursorOpacity]);
 
   if (!isPointerFine) return null;
 
@@ -80,7 +85,7 @@ export function CustomCursor() {
           height: cursorSize,
           opacity: cursorOpacity,
         }}
-        className="rounded-full border border-ruby/80 bg-ruby/5"
+        className="rounded-full border border-ruby bg-ruby/10"
       />
     </motion.div>
   );

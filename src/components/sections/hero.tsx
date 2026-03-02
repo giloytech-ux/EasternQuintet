@@ -1,9 +1,9 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Calendar, Play } from "lucide-react";
-import { TextReveal } from "@/components/ui/text-reveal";
 import { Magnetic } from "@/components/ui/magnetic";
 import { easing, duration } from "@/lib/animations";
 
@@ -16,37 +16,44 @@ export function Hero() {
 
   const contentOpacity = useTransform(scrollYProgress, [0, 0.35], [1, 0]);
   const contentY = useTransform(scrollYProgress, [0, 0.35], [0, -80]);
-  const glowScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.3]);
-  const glowOpacity = useTransform(scrollYProgress, [0, 0.5], [0.2, 0.05]);
+  const imageScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.1]);
 
   return (
     <section
       ref={sectionRef}
       id="home"
-      className="film-grain relative flex h-screen items-center justify-center overflow-hidden"
+      className="relative flex h-screen items-center justify-center overflow-hidden"
     >
-      {/* Layer 1: Abstract radial gradient background */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#2a0a0f_0%,_#0f0f0f_50%,_#000000_100%)]" />
+      {/* Background image with parallax zoom */}
+      <motion.div className="absolute inset-0" style={{ scale: imageScale }}>
+        <Image
+          src="/hero-bg.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+      </motion.div>
 
-      {/* Layer 2: Ruby glow orb — the "jewel" */}
-      <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-ruby blur-[150px]"
-        style={{ scale: glowScale, opacity: glowOpacity }}
-      />
+      {/* Gradient overlay — dark at bottom, lighter top */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/20" />
 
-      {/* Layer 3: Content */}
+      {/* Content */}
       <motion.div
-        className="relative z-10 mx-auto max-w-4xl px-6 text-center"
+        className="relative z-10 mx-auto max-w-5xl px-6 text-center"
         style={{ opacity: contentOpacity, y: contentY }}
       >
-        {/* Subtitle */}
-        <TextReveal
-          text="PREMIUM LIVE ENTERTAINMENT"
-          as="p"
-          mode="word"
-          delay={0.3}
-          className="mb-5 tracking-[0.3em] text-[11px] text-ruby md:text-xs"
-        />
+        {/* Pill badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: duration.normal, delay: 0.3, ease: easing.smooth }}
+        >
+          <span className="inline-block rounded-full border border-white/20 bg-white/10 px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-white/90 backdrop-blur-sm">
+            Premium Live Entertainment
+          </span>
+        </motion.div>
 
         {/* H1 */}
         <motion.h1
@@ -54,31 +61,28 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{
             duration: duration.dramatic,
-            delay: 0.8,
+            delay: 0.7,
             ease: easing.luxuryOut,
           }}
-          className="mb-6 font-heading text-5xl font-bold leading-tight text-white md:text-7xl"
+          className="mt-8 font-heading text-5xl font-bold leading-[1.1] text-white md:text-8xl"
         >
-          Elevating Moments <br />
-          Through{" "}
-          <span className="bg-gradient-to-r from-white to-smoke bg-clip-text italic text-transparent">
-            Harmony.
-          </span>
+          The Sound of <br />
+          <span className="italic text-white/70">Unforgettable.</span>
         </motion.h1>
 
         {/* Supporting paragraph */}
         <motion.p
-          initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{
             duration: duration.slow,
-            delay: 1.4,
+            delay: 1.2,
             ease: easing.smooth,
           }}
-          className="mx-auto mb-10 max-w-2xl text-base leading-relaxed text-smoke md:text-lg"
+          className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/70 md:text-lg"
         >
-          Experience the sophisticated blend of classical mastery and modern
-          elegance. The perfect soundtrack for your most important events.
+          Classical mastery meets modern elegance. The perfect
+          soundtrack for your most important moments.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -87,28 +91,28 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{
             duration: duration.normal,
-            delay: 1.8,
+            delay: 1.6,
             ease: easing.luxuryOut,
           }}
-          className="flex flex-col items-center justify-center gap-4 md:flex-row"
+          className="mt-10 flex flex-col items-center justify-center gap-4 md:flex-row"
         >
           <Magnetic strength={6}>
             <a
               href="#contact"
-              className="ruby-glow-heavy inline-flex items-center gap-2 rounded-full bg-ruby px-8 py-4 text-sm font-bold tracking-wide text-white transition-all duration-300 hover:bg-ruby-dark"
+              className="ruby-glow-heavy inline-flex items-center gap-2.5 rounded-full bg-ruby px-8 py-4 text-sm font-semibold tracking-wide text-white transition-all duration-300 hover:bg-ruby-dark"
             >
-              <Calendar size={18} />
-              CHECK AVAILABILITY
+              <Calendar size={16} />
+              Check Availability
             </a>
           </Magnetic>
 
           <Magnetic strength={6}>
             <a
               href="#media"
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-bold tracking-wide text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10"
+              className="inline-flex items-center gap-2.5 rounded-full border border-white/25 bg-white/10 px-8 py-4 text-sm font-semibold tracking-wide text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/20"
             >
-              <Play size={18} />
-              WATCH LIVE
+              <Play size={16} />
+              Watch Live
             </a>
           </Magnetic>
         </motion.div>
@@ -118,22 +122,19 @@ export function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.6, duration: duration.slow }}
-        className="absolute bottom-10 left-1/2 z-10 hidden -translate-x-1/2 md:block"
+        transition={{ delay: 2.4, duration: duration.slow }}
+        className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 md:block"
       >
         <motion.div
-          animate={{ y: [0, 8, 0] }}
+          animate={{ y: [0, 6, 0] }}
           transition={{
             duration: 2,
             repeat: Infinity,
             ease: easing.gentle,
           }}
-          className="flex flex-col items-center gap-2"
+          className="flex flex-col items-center gap-3"
         >
-          <span className="text-[10px] tracking-[0.2em] uppercase text-muted">
-            Scroll
-          </span>
-          <div className="h-8 w-px bg-gradient-to-b from-ruby/40 to-transparent" />
+          <div className="h-10 w-px bg-gradient-to-b from-white/30 to-transparent" />
         </motion.div>
       </motion.div>
     </section>

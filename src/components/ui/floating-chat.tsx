@@ -44,19 +44,19 @@ export function FloatingChat() {
             transition={{ duration: duration.fast, ease: easing.smooth }}
             className="glass mb-2 flex flex-col gap-3 rounded-2xl p-4"
           >
-            <p className="text-xs font-medium uppercase tracking-[0.15em] text-smoke">Chat with us</p>
+            <p className="text-xs font-medium uppercase tracking-[0.15em] text-muted">Chat with us</p>
             {CHAT_OPTIONS.map((opt) => (
               <a
                 key={opt.label}
                 href={opt.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 rounded-lg px-3 py-2 transition-colors duration-300 hover:bg-white/5"
+                className="flex items-center gap-3 rounded-lg px-3 py-2 transition-colors duration-300 hover:bg-snow"
               >
                 <div className={`flex h-8 w-8 items-center justify-center rounded-full ${opt.bg}`}>
                   <opt.icon size={14} className={opt.color} />
                 </div>
-                <span className="text-sm text-ivory/80">{opt.label}</span>
+                <span className="text-sm text-charcoal">{opt.label}</span>
               </a>
             ))}
           </motion.div>

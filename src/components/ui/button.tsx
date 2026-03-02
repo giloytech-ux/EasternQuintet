@@ -17,9 +17,9 @@ const variantStyles = {
   primary:
     "bg-ruby text-white hover:bg-ruby-dark font-bold ruby-glow",
   outline:
-    "border border-white/10 bg-white/5 backdrop-blur-sm text-white hover:bg-white/10 font-bold",
+    "border border-silver bg-white text-ink hover:border-ruby/30 hover:bg-snow font-bold",
   ghost:
-    "text-smoke hover:text-white",
+    "text-muted hover:text-ink",
 };
 
 const sizeStyles = {

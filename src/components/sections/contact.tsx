@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { Send, MessageCircle, Phone, Video } from "lucide-react";
+import { Send, MessageCircle, Phone, Video, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { SectionWrapper } from "@/components/ui/section-wrapper";
 import { EVENT_TYPES } from "@/lib/constants";
 import { BookingFormData } from "@/types";
-import { staggerContainer, staggerItem, lineExpand } from "@/lib/animations";
+import { staggerContainer, staggerItem } from "@/lib/animations";
 
 export function Contact() {
   const [form, setForm] = useState<BookingFormData>({
@@ -35,47 +35,40 @@ export function Contact() {
   };
 
   const inputClass =
-    "w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3.5 text-sm text-ivory placeholder:text-muted focus:border-ruby/50 focus:outline-none focus:ring-1 focus:ring-ruby/30 transition-all duration-300 backdrop-blur-sm";
+    "w-full rounded-2xl border border-cloud bg-snow px-5 py-4 text-sm text-ink placeholder:text-muted-light focus:border-ruby/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-ruby/10 transition-all duration-300";
 
   return (
-    <SectionWrapper id="contact" className="bg-onyx-900">
+    <SectionWrapper id="contact" className="bg-white">
       <div className="mx-auto max-w-6xl">
         <motion.div
-          className="text-center"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
+          className="mb-16 max-w-2xl"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
         >
-          <motion.p
-            variants={staggerItem}
-            className="text-xs font-medium tracking-[0.3em] uppercase text-ruby"
-          >
+          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-ruby">
             Get In Touch
-          </motion.p>
-          <motion.h2
-            variants={staggerItem}
-            className="mt-6 font-heading text-4xl font-bold text-white md:text-5xl"
-          >
+          </span>
+          <h2 className="mt-4 font-heading text-4xl font-bold text-ink md:text-5xl">
             Book Your Event
-          </motion.h2>
-          <motion.div
-            variants={lineExpand}
-            className="mt-6 mx-auto h-px w-16 origin-center bg-ruby/40"
-          />
+          </h2>
+          <p className="mt-4 text-[15px] leading-relaxed text-muted">
+            Tell us about your vision and we&apos;ll craft the perfect musical experience.
+          </p>
         </motion.div>
 
-        <div className="mt-20 grid gap-16 lg:grid-cols-2">
+        <div className="grid gap-16 lg:grid-cols-2">
           {/* Booking Form */}
           <motion.form
             onSubmit={handleSubmit}
-            className="space-y-5"
+            className="space-y-4"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
           >
-            <motion.div variants={staggerItem} className="grid gap-5 sm:grid-cols-2">
+            <motion.div variants={staggerItem} className="grid gap-4 sm:grid-cols-2">
               <input
                 type="text"
                 placeholder="Your Name *"
@@ -93,7 +86,7 @@ export function Contact() {
                 className={inputClass}
               />
             </motion.div>
-            <motion.div variants={staggerItem} className="grid gap-5 sm:grid-cols-2">
+            <motion.div variants={staggerItem} className="grid gap-4 sm:grid-cols-2">
               <input
                 type="tel"
                 placeholder="Phone Number"
@@ -144,13 +137,14 @@ export function Contact() {
                 className={inputClass + " resize-none"}
               />
             </motion.div>
-            <motion.div variants={staggerItem}>
+            <motion.div variants={staggerItem} className="pt-2">
               <button
                 type="submit"
-                className="ruby-glow-heavy inline-flex items-center gap-2 rounded-full bg-ruby px-8 py-4 text-sm font-bold tracking-wide text-white transition-all duration-300 hover:bg-ruby-dark"
+                className="ruby-glow-heavy inline-flex items-center gap-2.5 rounded-full bg-ruby px-8 py-4 text-sm font-semibold tracking-wide text-white transition-all duration-300 hover:bg-ruby-dark"
               >
                 <Send size={14} />
-                SEND INQUIRY
+                Send Inquiry
+                <ArrowRight size={14} />
               </button>
             </motion.div>
           </motion.form>
@@ -165,30 +159,30 @@ export function Contact() {
           >
             <motion.h3
               variants={staggerItem}
-              className="font-heading text-2xl font-bold text-white md:text-3xl"
+              className="text-xl font-bold text-ink md:text-2xl"
             >
               Prefer to talk directly?
             </motion.h3>
-            <motion.p variants={staggerItem} className="mt-3 text-smoke">
-              Reach out via your preferred messaging platform and we&apos;ll
-              respond within the hour.
+            <motion.p variants={staggerItem} className="mt-2 text-[15px] text-muted">
+              Reach out via your preferred platform — we respond within the hour.
             </motion.p>
-            <div className="mt-10 flex flex-col gap-4">
+            <div className="mt-8 flex flex-col gap-3">
               <motion.a
                 variants={staggerItem}
                 whileHover={{ y: -2 }}
                 href="https://wa.me/1234567890"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-sm transition-all duration-300 hover:border-whatsapp/50 hover:bg-white/10"
+                className="group flex items-center gap-4 rounded-2xl border border-cloud bg-snow px-5 py-4 transition-all duration-300 hover:border-whatsapp/30 hover:bg-white hover:shadow-md"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-whatsapp/20 text-whatsapp">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-whatsapp/10 text-whatsapp">
                   <MessageCircle size={18} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-white">WhatsApp</p>
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-ink">WhatsApp</p>
                   <p className="text-xs text-muted">Chat with us instantly</p>
                 </div>
+                <ArrowRight size={16} className="text-muted-light transition-all duration-300 group-hover:translate-x-1 group-hover:text-whatsapp" />
               </motion.a>
               <motion.a
                 variants={staggerItem}
@@ -196,15 +190,16 @@ export function Contact() {
                 href="viber://chat?number=1234567890"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-sm transition-all duration-300 hover:border-viber/50 hover:bg-white/10"
+                className="group flex items-center gap-4 rounded-2xl border border-cloud bg-snow px-5 py-4 transition-all duration-300 hover:border-viber/30 hover:bg-white hover:shadow-md"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-viber/20 text-viber">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-viber/10 text-viber">
                   <Phone size={18} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-white">Viber</p>
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-ink">Viber</p>
                   <p className="text-xs text-muted">Message us on Viber</p>
                 </div>
+                <ArrowRight size={16} className="text-muted-light transition-all duration-300 group-hover:translate-x-1 group-hover:text-viber" />
               </motion.a>
               <motion.a
                 variants={staggerItem}
@@ -212,15 +207,16 @@ export function Contact() {
                 href="https://zoom.us"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-sm transition-all duration-300 hover:border-messenger/50 hover:bg-white/10"
+                className="group flex items-center gap-4 rounded-2xl border border-cloud bg-snow px-5 py-4 transition-all duration-300 hover:border-messenger/30 hover:bg-white hover:shadow-md"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-messenger/20 text-messenger">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-messenger/10 text-messenger">
                   <Video size={18} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-white">Zoom</p>
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-ink">Zoom</p>
                   <p className="text-xs text-muted">Schedule a video call</p>
                 </div>
+                <ArrowRight size={16} className="text-muted-light transition-all duration-300 group-hover:translate-x-1 group-hover:text-messenger" />
               </motion.a>
             </div>
           </motion.div>

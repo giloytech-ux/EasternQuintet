@@ -4,7 +4,6 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { FloatingChat } from "@/components/ui/floating-chat";
-import { CustomCursor } from "@/components/ui/custom-cursor";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -31,11 +30,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body
         className={`${playfair.variable} ${montserrat.variable} antialiased`}
       >
-        <CustomCursor />
         <Navbar />
         {children}
         <Footer />
