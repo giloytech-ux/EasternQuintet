@@ -31,7 +31,7 @@ export function Hero() {
           alt=""
           fill
           priority
-          className="object-cover object-[25%_center] md:object-center"
+          className="object-cover object-[30%_center] md:object-center"
           sizes="100vw"
         />
       </motion.div>
