@@ -22,7 +22,7 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="home"
-      className="relative flex h-[85vh] items-center justify-center overflow-hidden md:h-screen"
+      className="relative flex h-[70vh] items-center justify-center overflow-hidden md:h-screen"
     >
       {/* Background image with parallax zoom */}
       <motion.div className="absolute inset-0" style={{ scale: imageScale }}>
